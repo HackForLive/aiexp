@@ -1,4 +1,12 @@
 notebook
-numpy==1.26.4
-torch
+numpy
 matplotlib
+transformers
+accelerate
+bitsandbytes
+sentencepiece
+protobuf
+streamlit
+pydantic
+fastapi
+uvicorn
