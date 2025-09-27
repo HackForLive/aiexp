@@ -23,11 +23,11 @@ def interpolate(d: datetime, d_1: datetime, v_1: float, d_2: datetime, v_2: floa
     :return: The interpolated value at date `d`."""
     match(method):
         case InterpolationMethod.LINEAR:
-            return v_1 + (v_2 - v_1) * (d - d_1).days / (d_2 - d_1).days
+            return v_1 + (v_2 - v_1) * (d - d_1) / (d_2 - d_1)
         case InterpolationMethod.STEP:
             return v_1
         case InterpolationMethod.LOG_LINEAR:
-            return exp(log(v_1) + (log(v_2) - log(v_1)) * (d - d_1).days / (d_2 - d_1).days)
+            return exp(log(v_1) + (log(v_2) - log(v_1)) * (d - d_1) / (d_2 - d_1))
     raise ValueError(f"Unknown interpolation method: {method}")
 
 class Curve:
@@ -53,7 +53,8 @@ class Curve:
         if date in self.nodes:
             return self.nodes[date]
         # Interpolate between the two surrounding nodes
-        for i, node_date in enumerate(self.node_dates[1:]):
+        for i in range(1, len(self.node_dates)):
+            node_date = self.node_dates[i]
             if date <= node_date:
                 node_date_0 = self.node_dates[i-1]
                 return interpolate(date, node_date_0, self.nodes[node_date_0],
