@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from schedule import Schedule
+
 
 if __name__ == "__main__":
     from curve import Curve, InterpolationMethod
@@ -11,3 +13,6 @@ if __name__ == "__main__":
     print(c)
     print(c[datetime(2022, 3, 15)])
     print(c[datetime(2022, 4, 1)])
+
+    schedule = Schedule(datetime(2022, 1, 1), tenor=11, period=3)
+    print(schedule)
